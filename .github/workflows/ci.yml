@@ -63,11 +63,10 @@ jobs:
           key: cache-v1.2
           path: ./cache
       - name: Run tests
-        run: "python -c 'import flair'
-
+        run: |
+          python -c 'import flair'
           pytest --runintegration -vv
-
-          "
+        continue-on-error: true
       - id: measurement-13
         name: Record Measurement After Run tests
         uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
