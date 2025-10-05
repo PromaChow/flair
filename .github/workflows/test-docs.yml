@@ -1,15 +1,31 @@
-name: 'Build doc page for artifact'
+name: Build doc page for artifact
 on:
   push:
-    branches: "*"
+    branches:
+      - main
 
 jobs:
   build_docs:
-    name: Build the docs using Sphinx and publish as artifact
-    runs-on: ubuntu-latest
     env:
       python-version: 3.9
+    name: Build the docs using Sphinx and publish as artifact
+    runs-on: ubuntu-latest
     steps:
+      - name: Start Energy Measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          task: start-measurement
+      - name: Start Energy Measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          task: start-measurement
+      - name: Start Energy Measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          task: start-measurement
       - name: Checkout code
         uses: actions/checkout@v3
       - name: setup python ${{ env.python-version }}
@@ -18,35 +34,274 @@ jobs:
           python-version: ${{ env.python-version }}
       - name: Install Torch cpu
         run: pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - id: measurement-6
+        name: Record Measurement After Install Torch cpu
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install Torch cpu
+          task: get-measurement
+      - id: measurement-5
+        name: Record Measurement After Install Torch cpu
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install Torch cpu
+          task: get-measurement
+      - id: measurement-4
+        name: Record Measurement After Install Torch cpu
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install Torch cpu
+          task: get-measurement
       - name: Install Flair dependencies
         run: pip install -e .
+      - id: measurement-10
+        name: Record Measurement After Install Flair dependencies
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install Flair dependencies
+          task: get-measurement
+      - id: measurement-8
+        name: Record Measurement After Install Flair dependencies
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install Flair dependencies
+          task: get-measurement
+      - id: measurement-6
+        name: Record Measurement After Install Flair dependencies
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install Flair dependencies
+          task: get-measurement
       - name: Install unittest dependencies
         run: pip install -r requirements-dev.txt
+      - id: measurement-14
+        name: Record Measurement After Install unittest dependencies
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install unittest dependencies
+          task: get-measurement
+      - id: measurement-11
+        name: Record Measurement After Install unittest dependencies
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install unittest dependencies
+          task: get-measurement
+      - id: measurement-8
+        name: Record Measurement After Install unittest dependencies
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install unittest dependencies
+          task: get-measurement
       - name: Install doc dependencies
         run: pip install -r docs/requirements.txt
+      - id: measurement-18
+        name: Record Measurement After Install doc dependencies
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install doc dependencies
+          task: get-measurement
+      - id: measurement-14
+        name: Record Measurement After Install doc dependencies
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install doc dependencies
+          task: get-measurement
+      - id: measurement-10
+        name: Record Measurement After Install doc dependencies
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Install doc dependencies
+          task: get-measurement
       - name: Fetch git tags
         run: git fetch --tags origin
-      - name: Change config to current branch
-        env:
+      - id: measurement-22
+        name: Record Measurement After Fetch git tags
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Fetch git tags
+          task: get-measurement
+      - id: measurement-17
+        name: Record Measurement After Fetch git tags
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Fetch git tags
+          task: get-measurement
+      - id: measurement-12
+        name: Record Measurement After Fetch git tags
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Fetch git tags
+          task: get-measurement
+      - env:
           BRANCH_NAME: ${{ github.ref_name }}
-        run: |
-          sed -i 's/^smv_branch_whitelist = r"^master$"/smv_branch_whitelist = r"^${{ env.BRANCH_NAME }}$"/' docs/conf.py
-          sed -i 's/^smv_tag_whitelist = r"^v\d+\.\d+\.\d+$"/smv_tag_whitelist = "^$"/' docs/conf.py
+        name: Change config to current branch
+        run: 'sed -i ''s/^smv_branch_whitelist = r"^master$"/smv_branch_whitelist
+          = r"^${{ env.BRANCH_NAME }}$"/'' docs/conf.py
+
+          sed -i ''s/^smv_tag_whitelist = r"^v\d+\.\d+\.\d+$"/smv_tag_whitelist =
+          "^$"/'' docs/conf.py
+
           cat docs/conf.py
+
+          '
+      - id: measurement-26
+        name: Record Measurement After Change config to current branch
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Change config to current branch
+          task: get-measurement
+      - id: measurement-20
+        name: Record Measurement After Change config to current branch
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Change config to current branch
+          task: get-measurement
+      - id: measurement-14
+        name: Record Measurement After Change config to current branch
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Change config to current branch
+          task: get-measurement
       - name: Build docs
-        run: |
-          sphinx-multiversion docs doc_build/
-      - name: Add redirect to stable doc
-        env:
+        run: 'sphinx-multiversion docs doc_build/
+
+          '
+      - id: measurement-30
+        name: Record Measurement After Build docs
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Build docs
+          task: get-measurement
+      - id: measurement-23
+        name: Record Measurement After Build docs
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Build docs
+          task: get-measurement
+      - id: measurement-16
+        name: Record Measurement After Build docs
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Build docs
+          task: get-measurement
+      - env:
           BRANCH_NAME: ${{ github.ref_name }}
-        run: |
-          cp assets/redirect.html doc_build/index.html
+        name: Add redirect to stable doc
+        run: 'cp assets/redirect.html doc_build/index.html
+
           cp assets/redirect.html doc_build/404.html
+
           cp assets/README.md doc_build/README.md
+
           sed -i "s/\[VERSION\]/${{ env.BRANCH_NAME }}/g" doc_build/index.html
+
           sed -i "s/\[VERSION\]/${{ env.BRANCH_NAME }}/g" doc_build/404.html
+
+          '
+      - id: measurement-34
+        name: Record Measurement After Add redirect to stable doc
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Add redirect to stable doc
+          task: get-measurement
+      - id: measurement-26
+        name: Record Measurement After Add redirect to stable doc
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Add redirect to stable doc
+          task: get-measurement
+      - id: measurement-18
+        name: Record Measurement After Add redirect to stable doc
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Add redirect to stable doc
+          task: get-measurement
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
         with:
           name: website
           path: doc_build
+      - id: display-measurement
+        name: Display Energy Results
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          task: display-results
+      - name: Save Total Energy Consumption Data
+        run: echo '${{ steps.final-measurement.outputs.data-total-json }}' > total_energy_consumption.json
+      - id: measurement-40
+        name: Record Measurement After Save Total Energy Consumption Data
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Save Total Energy Consumption Data
+          task: get-measurement
+      - id: measurement-31
+        name: Record Measurement After Save Total Energy Consumption Data
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Save Total Energy Consumption Data
+          task: get-measurement
+      - name: Upload Energy Consumption Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: total-energy-consumption
+          path: total_energy_consumption.json
+      - id: display-measurement
+        name: Display Energy Results
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          task: display-results
+      - name: Save Total Energy Consumption Data
+        run: echo '${{ steps.final-measurement.outputs.data-total-json }}' > total_energy_consumption.json
+      - id: measurement-45
+        name: Record Measurement After Save Total Energy Consumption Data
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          label: Save Total Energy Consumption Data
+          task: get-measurement
+      - name: Upload Energy Consumption Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: total-energy-consumption
+          path: total_energy_consumption.json
+      - id: display-measurement
+        name: Display Energy Results
+        uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
+        with:
+          json-output: true
+          task: display-results
+      - name: Save Total Energy Consumption Data
+        run: echo '${{ steps.final-measurement.outputs.data-total-json }}' > total_energy_consumption.json
+      - name: Upload Energy Consumption Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: total-energy-consumption
+          path: total_energy_consumption.json
